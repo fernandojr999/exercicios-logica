@@ -1,6 +1,11 @@
 function caixaeletronico_executar(){
     let number = prompt("Informe o valor do saque: "); 
 
+    if((number == 1) || (number == 3)){
+        alert('Não é permitido saque nesse valor!');
+        return;
+    }
+
 
     let t = retornaArr(number);
 
