@@ -31,41 +31,12 @@
             context.beginPath();
             context.strokeStyle = "rgb(255,255,255)";
             
-            context.lineWidth = 4;
+            context.lineWidth = 2;
         
-            /************************
-             * Início do Whiteboard
-             ************************/
-            /*var bMouseIsDown = false;
-            canvasWhiteboard.onmousedown = function(e) {
-                bMouseIsDown = true;
-                whiteboardLastX = e.clientX - canvasWhiteboard.offsetLeft + (window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft);
-                whiteboardLastY = e.clientY - canvasWhiteboard.offsetTop + (window.pageYOffset||document.body.scrollTop||document.documentElement.scrollTop);
-                context.moveTo(whiteboardLastX, whiteboardLastY);
-            }
-            canvasWhiteboard.onmouseup = function() {
-                bMouseIsDown = false;
-                whiteboardLastX = -1;
-                whiteboardLastY = -1;
-            }
-            canvasWhiteboard.onmousemove = function(e) {
-                if (bMouseIsDown) {
-                    var iX = e.clientX - canvasWhiteboard.offsetLeft + (window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft);
-                    var iY = e.clientY - canvasWhiteboard.offsetTop + (window.pageYOffset||document.body.scrollTop||document.documentElement.scrollTop);
-                    context.lineTo(iX, iY);
-                    context.stroke();
-                    whiteboardLastX = iX;
-                    whiteboardLastY = iY;
-                }
-            }*/
-            /************************
-             * fim do Whiteboard
-             ************************/
-
             // Gerar Imagem
             document.getElementById("btGerarImagem").onclick = function() {
                 // Pega um maximo de 1000 iteracoes
-                let qtdIteracoes = Math.floor(Math.random() * 1000);
+                let qtdIteracoes = Math.floor(Math.random() * 300);
                 console.log(qtdIteracoes);
                 for (let i = 0; i < qtdIteracoes; i++) {
                     // Define a direção: 1 - Direite, 2 - Esquerda, 3 - Cima, 4 - baixo
@@ -79,6 +50,17 @@
 
                     context.moveTo(posInicialX, posInicialY);
 
+                    if(direcao == 0){
+                        context.lineTo(posInicialX + tamanho, posInicialY);
+                    } else if(direcao == 1){
+                        context.lineTo(posInicialX - tamanho, posInicialY);
+                    } else if(direcao == 2){
+                        context.lineTo(posInicialX , posInicialY -tamanho);
+                    } else if(direcao == 3){
+                        context.lineTo(posInicialX, posInicialY + tamanho);
+                    }
+                    
+                    context.stroke();
                 }
             }
         
