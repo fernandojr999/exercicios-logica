@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p>Gerador de imagens</p>
+    <input type="button" id="btGerarImagem" value="Gerar Imagem" />
+    <canvas id="canvasWhiteboard" width="500" height="500"></canvas>
+
+    <br />
+    <input type="button" id="btSavePNG" value="Savar Whiteboard como PNG" />
+    <br />
+    <input type="button" id="btSaveJPG" value="Savar Whiteboard como JPG" />
+
+    <script type="text/javascript">
+        window.onload = function() {
+        
+            var canvasWhiteboard = document.getElementById("canvasWhiteboard");
+            var context = canvasWhiteboard.getContext("2d");
+        
+            // Background
+            context.fillStyle = "rgb(0,0,0)";
+            context.fillRect(0,0,canvasWhiteboard.width,canvasWhiteboard.height);
+        
+            // Linha branca do Whiteboard
+            context.beginPath();
+            context.strokeStyle = "rgb(255,255,255)";
+            
+            context.lineWidth = 4;
+        
+            /************************
+             * Início do Whiteboard
+             ************************/
+            /*var bMouseIsDown = false;
+            canvasWhiteboard.onmousedown = function(e) {
+                bMouseIsDown = true;
+                whiteboardLastX = e.clientX - canvasWhiteboard.offsetLeft + (window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft);
+                whiteboardLastY = e.clientY - canvasWhiteboard.offsetTop + (window.pageYOffset||document.body.scrollTop||document.documentElement.scrollTop);
+                context.moveTo(whiteboardLastX, whiteboardLastY);
+            }
+            canvasWhiteboard.onmouseup = function() {
+                bMouseIsDown = false;
+                whiteboardLastX = -1;
+                whiteboardLastY = -1;
+            }
+            canvasWhiteboard.onmousemove = function(e) {
+                if (bMouseIsDown) {
+                    var iX = e.clientX - canvasWhiteboard.offsetLeft + (window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft);
+                    var iY = e.clientY - canvasWhiteboard.offsetTop + (window.pageYOffset||document.body.scrollTop||document.documentElement.scrollTop);
+                    context.lineTo(iX, iY);
+                    context.stroke();
+                    whiteboardLastX = iX;
+                    whiteboardLastY = iY;
+                }
+            }*/
+            /************************
+             * fim do Whiteboard
+             ************************/
+
+            // Gerar Imagem
+            document.getElementById("btGerarImagem").onclick = function() {
+                // Pega um maximo de 1000 iteracoes
+                let qtdIteracoes = Math.floor(Math.random() * 1000);
+                console.log(qtdIteracoes);
+                for (let i = 0; i < qtdIteracoes; i++) {
+                    // Define a direção: 1 - Direite, 2 - Esquerda, 3 - Cima, 4 - baixo
+                    let direcao = Math.floor(Math.random() * 3);
+                    
+                    // Define o tamanho da linha a ser desenhada maximo do tamanho do board
+                    let tamanho = Math.floor(Math.random() * 499);
+
+                    let posInicialX = Math.floor(Math.random() * 499);
+                    let posInicialY = Math.floor(Math.random() * 499);
+
+                    context.moveTo(posInicialX, posInicialY);
+
+                }
+            }
+        
+            // Salvar o PNG
+            document.getElementById("btSavePNG").onclick = function() {
+                // Esta linha captura a imagem do Canvas
+                var imagemData = canvasWhiteboard.toDataURL("image/png")
+                // Esta linha altera o DATA para octet-stream para que o navegador 
+                // coloque este arquivo para download
+                document.location.href = imagemData.replace("image/png", "image/octet-stream");
+            }
+        
+            // Salvar o PNG
+            document.getElementById("btSaveJPG").onclick = function() {
+                // Esta linha captura a imagem do Canvas
+                var imagemData = canvasWhiteboard.toDataURL("image/jpeg")
+                // Esta linha altera o DATA para octet-stream para que o navegador 
+                // coloque este arquivo para download
+                document.location.href = imagemData.replace("image/jpeg", "image/octet-stream");
+            }
+        }
+    </script>
+</body>
+</html>
