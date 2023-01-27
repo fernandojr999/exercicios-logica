@@ -8,7 +8,7 @@ let tabuleiro =[[[1,  ''], [2 , ''], [3 , ''], [4 , ''], [5 , ''], [6 , ''], [7 
                 [[57, ''], [58, ''], [59, ''], [60, ''], [61, ''], [62, ''], [63, ''], [64, '']]];
 
 function inicializarJogo(){
-    tabuleiro[0][0][1] = '&#9814';
+    tabuleiro[0][0][1] = '♖';
     tabuleiro[0][1][1] = '&#9816';
     tabuleiro[0][2][1] = '&#9815';
     tabuleiro[0][3][1] = '&#9819';
@@ -16,19 +16,20 @@ function inicializarJogo(){
     tabuleiro[0][5][1] = '&#9812';
     tabuleiro[0][6][1] = '&#9812';
     tabuleiro[0][7][1] = '&#9812';
-    tabuleiro[0][8][1] = '&#9812';
-    tabuleiro[0][9][1] = '&#9812';
-    tabuleiro[0][10][1] = '&#9812';
-    tabuleiro[0][11][1] = '&#9812';
-    tabuleiro[0][12][1] = '&#9812';
-    tabuleiro[0][13][1] = '&#9812';
-    tabuleiro[0][14][1] = '&#9812';
-    tabuleiro[0][15][1] = '&#9812';
-    tabuleiro[0][16][1] = '&#9812';
+
+    tabuleiro[0][7][1] = '&#9812';
+    tabuleiro[0][7][1] = '&#9812';
+    tabuleiro[0][7][1] = '&#9812';
+    tabuleiro[0][7][1] = '&#9812';
+    tabuleiro[0][7][1] = '&#9812';
+    tabuleiro[0][7][1] = '&#9812';
+    tabuleiro[0][7][1] = '&#9812';
+    tabuleiro[0][7][1] = '&#9812';
     renderState();
 }
 
 function renderState(){
+    console.log(tabuleiro.length);
     for (let i = 0; i < tabuleiro.length; i++) {
         for (let j = 0; j < tabuleiro[i].length; j++) {
             console.log("#"+tabuleiro[i][j][0]);

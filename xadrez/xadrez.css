@@ -23,8 +23,8 @@
     float: left;
     width: 70px;
     height: 70px;
-    border-left: 1.5px solid #000;
-    border-bottom: 1.5px solid #000;
+    border-left: 1.5px solid rgb(1, 68, 15);
+    border-bottom: 1.5px solid rgb(1, 68, 15);
     text-align: center;
   }
   
@@ -33,12 +33,12 @@
   }
   
   .line-1 div:nth-child(2n+1)  {
-    background: #000;
+    background: rgb(1, 68, 15);
     color: #FFF
   }
   
   .line-2 div:nth-child(2n)  {
-    background: #000;
+    background: rgb(1, 68, 15);
     color: #FFF
   }
   

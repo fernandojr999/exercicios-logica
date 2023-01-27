@@ -53,7 +53,9 @@
                 for (let i = 0; i < qtdIteracoes; i++) {
 
                     // Define se será uma forma geometrica ou linha
-                    
+                    // 0 - linha, 1- quadrado, 2- circulo, 
+                    let forma = Math.floor(Math.random() * 2);
+
                     // Define uma cor para o traço
                     context.strokeStyle = '#' + Math.floor(Math.random() * 0x1000000).toString(16).padStart(6, '0');
 
@@ -66,19 +68,30 @@
                     let posInicialX = Math.floor(Math.random() * 499);
                     let posInicialY = Math.floor(Math.random() * 499);
 
-                    context.moveTo(posInicialX, posInicialY);
+                    if(forma == 0){
+                        context.moveTo(posInicialX, posInicialY);
 
-                    if(direcao == 0){
-                        context.lineTo(posInicialX + tamanho, posInicialY);
-                    } else if(direcao == 1){
-                        context.lineTo(posInicialX - tamanho, posInicialY);
-                    } else if(direcao == 2){
-                        context.lineTo(posInicialX , posInicialY -tamanho);
-                    } else if(direcao == 3){
-                        context.lineTo(posInicialX, posInicialY + tamanho);
+                        if(direcao == 0){
+                            context.lineTo(posInicialX + tamanho, posInicialY);
+                        } else if(direcao == 1){
+                            context.lineTo(posInicialX - tamanho, posInicialY);
+                        } else if(direcao == 2){
+                            context.lineTo(posInicialX , posInicialY -tamanho);
+                        } else if(direcao == 3){
+                            context.lineTo(posInicialX, posInicialY + tamanho);
+                        }
+                        
+                        context.stroke();
+                    }
+
+                    if(forma == 1){
+                        context.strokeRect(posInicialX, posInicialY, tamanho, tamanho);
+                    }
+
+                    if(forma == 2){
+                        ctx.arc(posInicialX, posInicialY, tamanho, 0, Math.PI * 2, true); 
                     }
                     
-                    context.stroke();
                 }
             }
        
