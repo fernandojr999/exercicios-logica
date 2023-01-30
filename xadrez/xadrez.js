@@ -84,8 +84,20 @@ function renderState(){
     document.getElementById('plcPreto').innerHTML = `Peças obtidas pelo preto: ${pecasObtidasPorPreto}`
 }
 
+function sugereMovimento(x,y){
+    if(tabuleiro[x][y][1].indexOf("Peão Branco") != -1){
+        if(y == 1){
+            document.getElementById(tabuleiro[y+1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y+2][x][0]).classList.add("sugestao");
+        } else {
+            document.getElementById(tabuleiro[y+1][x][0]).classList.add("sugestao");
+        }
+    }
+}
+
 function posicaoClick(x,y){
     if(!pecaSelecionada){
+        sugereMovimento(x, y);
         console.log({x,y});
         pecaSelecionada = tabuleiro[x][y];
         renderState();
@@ -94,3 +106,4 @@ function posicaoClick(x,y){
         pecaSelecionada = undefined;
     }
 }
+
