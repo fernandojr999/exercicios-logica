@@ -7,36 +7,31 @@ let tabuleiro =[[[1,  ''], [2 , ''], [3 , ''], [4 , ''], [5 , ''], [6 , ''], [7 
                 [[49, ''], [50, ''], [51, ''], [52, ''], [53, ''], [54, ''], [55, ''], [56, '']],
                 [[57, ''], [58, ''], [59, ''], [60, ''], [61, ''], [62, ''], [63, ''], [64, '']]];
 
-function inicializarJogo(){
-    tabuleiro[0][0][1] = '♖';
-    tabuleiro[0][1][1] = '&#9816';
-    tabuleiro[0][2][1] = '&#9815';
-    tabuleiro[0][3][1] = '&#9819';
-    tabuleiro[0][4][1] = '&#9812';
-    tabuleiro[0][5][1] = '&#9812';
-    tabuleiro[0][6][1] = '&#9812';
-    tabuleiro[0][7][1] = '&#9812';
+let pecasObtidasPorBranco = [];
+let pecasObtidasPorPreto = [];
 
-    tabuleiro[0][7][1] = '&#9812';
-    tabuleiro[0][7][1] = '&#9812';
-    tabuleiro[0][7][1] = '&#9812';
-    tabuleiro[0][7][1] = '&#9812';
-    tabuleiro[0][7][1] = '&#9812';
-    tabuleiro[0][7][1] = '&#9812';
-    tabuleiro[0][7][1] = '&#9812';
-    tabuleiro[0][7][1] = '&#9812';
+function inicializarJogo(){
+    tabuleiro[0][0][1] = 'Torre Branca';
+    tabuleiro[0][1][1] = 'Cavalo Branco';
+    renderState();
+}
+
+function movePeca(peca, x, y){
+    tabuleiro[x][y][1] = peca[1];
+    peca[1] = "";
+
     renderState();
 }
 
 function renderState(){
-    console.log(tabuleiro.length);
     for (let i = 0; i < tabuleiro.length; i++) {
         for (let j = 0; j < tabuleiro[i].length; j++) {
-            console.log("#"+tabuleiro[i][j][0]);
             document.getElementById(tabuleiro[i][j][0]).innerHTML = tabuleiro[i][j][1];
         }
     }
 }
+
+
 
 /*
 <!--<div id="1">&#9814</div>
