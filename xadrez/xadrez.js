@@ -1,6 +1,3 @@
-import {Peca} from './models/Peca';
-
-
 let tabuleiro =[[[1,  ''], [2 , ''], [3 , ''], [4 , ''], [5 , ''], [6 , ''], [7 , ''], [8 , '']],
                 [[9,  ''], [10, ''], [11, ''], [12, ''], [13, ''], [14, ''], [15, ''], [16, '']],
                 [[17, ''], [18, ''], [19, ''], [20, ''], [21, ''], [22, ''], [23, ''], [24, '']],
@@ -12,7 +9,6 @@ let tabuleiro =[[[1,  ''], [2 , ''], [3 , ''], [4 , ''], [5 , ''], [6 , ''], [7 
 
 let pecasObtidasPorBranco = [];
 let pecasObtidasPorPreto = [];
-
 
 let pecaSelecionada;
 
@@ -55,13 +51,13 @@ function inicializarJogo(){
     renderState();
 }
 
-function movePeca(peca, x, y){
+function movePeca(peca, y, x){
     
-    if(tabuleiro[x][y][1] != ""){
-        pecasObtidasPorBranco.push(tabuleiro[x][y][1]);
+    if(tabuleiro[y][x][1] != ""){
+        pecasObtidasPorBranco.push(tabuleiro[y][x][1]);
     }
     
-    tabuleiro[x][y][1] = peca[1];
+    tabuleiro[y][x][1] = peca[1];
     peca[1] = "";
 
 
@@ -72,14 +68,6 @@ function renderState(){
     for (let i = 0; i < tabuleiro.length; i++) {
         for (let j = 0; j < tabuleiro[i].length; j++) {
             document.getElementById(tabuleiro[i][j][0]).innerHTML = tabuleiro[i][j][1];
-
-            if(pecaSelecionada){
-                if(pecaSelecionada[1] == tabuleiro[i][j][1]){
-                    document.getElementById(tabuleiro[i][j][0]).classList.add("peca-selecionada");
-                }else{
-                    document.getElementById(tabuleiro[i][j][0]).classList.remove("peca-selecionada");
-                }
-            }
         }
     }
 
@@ -87,28 +75,54 @@ function renderState(){
     document.getElementById('plcPreto').innerHTML = `Peças obtidas pelo preto: ${pecasObtidasPorPreto}`
 }
 
-function sugereMovimento(x,y){
+function sugereMovimento(y,x){
 
-    if(tabuleiro[x][y][1].indexOf("Peão Branco") != -1){
+    if(tabuleiro[y][x][1].indexOf("Peão Branco") != -1){
+        if(tabuleiro[y+1][x+1][1].indexOf("Preto") != -1){
+            document.getElementById(tabuleiro[y + 1][x+1][0]).classList.add("matar");
+            document.getElementById(tabuleiro[y + 1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y + 2][x][0]).classList.add("sugestao");
+        } 
+        if(tabuleiro[y+1][x-1][1].indexOf("Preto") != -1){
+            document.getElementById(tabuleiro[y + 1][x-1][0]).classList.add("matar");
+            document.getElementById(tabuleiro[y + 1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y + 2][x][0]).classList.add("sugestao");
+        }
         
         if(y == 1){
-            document.getElementById(tabuleiro[x + 1][y][0]).classList.add("sugestao");
-            document.getElementById(tabuleiro[x + 2][y][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y + 1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y + 2][x][0]).classList.add("sugestao");
         } else {
-            document.getElementById(tabuleiro[x][y][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y][x][0]).classList.add("sugestao");
         }
     }
 }
 
-function posicaoClick(x,y){
+function posicaoClick(y,x){
     if(!pecaSelecionada){
-        sugereMovimento(x, y);
-        console.log({x,y});
-        pecaSelecionada = tabuleiro[x][y];
+        sugereMovimento(y, x);
+        console.log({y,x});
+        pecaSelecionada = tabuleiro[y][x];
         renderState();
     } else {
-        movePeca(pecaSelecionada, x, y);
-        pecaSelecionada = undefined;
+        if(pecaSelecionada == tabuleiro[y][x]){
+            pecaSelecionada = undefined;
+        }else{
+            movePeca(pecaSelecionada, y, x);
+            pecaSelecionada = undefined;
+        }
+
+
+        for (let i = 0; i < tabuleiro.length; i++) {
+            for (let j = 0; j < tabuleiro[i].length; j++) {
+                document.getElementById(tabuleiro[i][j][0]).classList.remove('matar');
+                document.getElementById(tabuleiro[i][j][0]).classList.remove('sugestao');
+                document.getElementById(tabuleiro[i][j][0]).classList.remove('peca-selecionada');
+                
+            }
+            
+        }
     }
 }
+
 
