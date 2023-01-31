@@ -1,3 +1,6 @@
+import {Peca} from './models/Peca';
+
+
 let tabuleiro =[[[1,  ''], [2 , ''], [3 , ''], [4 , ''], [5 , ''], [6 , ''], [7 , ''], [8 , '']],
                 [[9,  ''], [10, ''], [11, ''], [12, ''], [13, ''], [14, ''], [15, ''], [16, '']],
                 [[17, ''], [18, ''], [19, ''], [20, ''], [21, ''], [22, ''], [23, ''], [24, '']],
@@ -14,10 +17,10 @@ let pecasObtidasPorPreto = [];
 let pecaSelecionada;
 
 function inicializarJogo(){
-    tabuleiro[0][0][1] = 'Torre Branca 1';
+    tabuleiro[0][0][1] = 'Torre Branco 1';
     tabuleiro[0][1][1] = 'Cavalo Branco 1';
     tabuleiro[0][2][1] = 'Bispo Branco 1';
-    tabuleiro[0][3][1] = 'Rainha Branca';
+    tabuleiro[0][3][1] = 'Rainha Branco';
     tabuleiro[0][4][1] = 'Rei Branco';
     tabuleiro[0][5][1] = 'Bispo Branco 2';
     tabuleiro[0][6][1] = 'Cavalo Branco 2';
@@ -85,12 +88,14 @@ function renderState(){
 }
 
 function sugereMovimento(x,y){
+
     if(tabuleiro[x][y][1].indexOf("Peão Branco") != -1){
+        
         if(y == 1){
-            document.getElementById(tabuleiro[y+1][x][0]).classList.add("sugestao");
-            document.getElementById(tabuleiro[y+2][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[x + 1][y][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[x + 2][y][0]).classList.add("sugestao");
         } else {
-            document.getElementById(tabuleiro[y+1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[x][y][0]).classList.add("sugestao");
         }
     }
 }
