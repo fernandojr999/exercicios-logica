@@ -52,19 +52,23 @@ function inicializarJogo() {
 }
 
 function movePeca(peca, y, x) {
-    if (tabuleiro[y][x][1] != "") {
-        console.log(tabuleiro[y][x][1].split(" ")[1])
-        if (tabuleiro[y][x][1].split(" ")[1] === "Preto") {
-            pecasObtidasPorPreto.push(tabuleiro[y][x][1])
-        } else {
-            pecasObtidasPorBranco.push(tabuleiro[y][x][1]);
+    if((document.getElementById(tabuleiro[y][x][0]).classList.contains("sugestao")) ||
+       (document.getElementById(tabuleiro[y][x][0]).classList.contains("matar"))){
+        
+        if (tabuleiro[y][x][1] != "") {
+            console.log(tabuleiro[y][x][1].split(" ")[1])
+            if (tabuleiro[y][x][1].split(" ")[1] === "Preto") {
+                pecasObtidasPorPreto.push(tabuleiro[y][x][1])
+            } else {
+                pecasObtidasPorBranco.push(tabuleiro[y][x][1]);
+            }
         }
-    }
-
-    tabuleiro[y][x][1] = peca[1];
-    peca[1] = "";
     
-    renderState();
+        tabuleiro[y][x][1] = peca[1];
+        peca[1] = "";
+        
+        renderState();
+    }
 }
 
 function renderState() {
@@ -112,11 +116,11 @@ function sugereMovimento(y, x) {
             document.getElementById(tabuleiro[y - 2][x][0]).classList.add("sugestao");
         }
 
-        if (y == 1) {
+        if (y == 6) {
             document.getElementById(tabuleiro[y - 1][x][0]).classList.add("sugestao");
             document.getElementById(tabuleiro[y - 2][x][0]).classList.add("sugestao");
         } else {
-            document.getElementById(tabuleiro[y][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y - 1][x][0]).classList.add("sugestao");
         }
     }
 
