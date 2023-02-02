@@ -92,6 +92,9 @@ function sugereMovimento(y, x) {
         movimentoTorre(y, x);
     }
    
+    if(tabuleiro[y][x][1].indexOf("Cavalo") != -1){
+        movimentoCavalo(y, x);
+    }
 
     
 }
@@ -238,7 +241,62 @@ function movimentoTorre(y,x){
                 break;
             }
         }
-    }
+    }    
+}
+
+function movimentoCavalo(y, x){
+    let tipo= tabuleiro[y][x][1].indexOf("Cavalo Branco") != -1 ? "Branco" : "Preto";
 
     
+    if(tabuleiro[y + 2] && tabuleiro[y + 2][x + 1]){
+        if(tabuleiro[y + 2][x + 1][1] === ""){
+            document.getElementById(tabuleiro[y + 2][x + 1][0]).classList.add("sugestao");
+        } else if(!tabuleiro[y + 2][x + 1][1].indexOf(tipo)){
+            document.getElementById(tabuleiro[y + 2][x + 1][0]).classList.add("matar");
+        }
+    }      
+    
+    if(tabuleiro[y - 2] && tabuleiro[y - 2][x + 1]){
+        if(tabuleiro[y - 2][x + 1][1] === ""){
+            document.getElementById(tabuleiro[y - 2][x + 1][0]).classList.add("sugestao");
+        } else if(!tabuleiro[y - 2][x + 1][1].indexOf(tipo)){
+            document.getElementById(tabuleiro[y - 2][x + 1][0]).classList.add("matar");
+        }
+    } 
+
+    if(tabuleiro[y + 2] && tabuleiro[y + 2][x - 1]){
+        if(tabuleiro[y + 2][x - 1][1] === ""){
+            document.getElementById(tabuleiro[y + 2][x - 1][0]).classList.add("sugestao");
+        } else if(!tabuleiro[y + 2][x - 1][1].indexOf(tipo)){
+            document.getElementById(tabuleiro[y + 2][x - 1][0]).classList.add("matar");
+        }
+    }      
+    
+    if(tabuleiro[y - 2] && tabuleiro[y - 2][x - 1]){
+        if(tabuleiro[y - 2][x - 1][1] === ""){
+            document.getElementById(tabuleiro[y - 2][x - 1][0]).classList.add("sugestao");
+        } else if(!tabuleiro[y - 2][x - 1][1].indexOf(tipo)){
+            document.getElementById(tabuleiro[y - 2][x - 1][0]).classList.add("matar");
+        }
+    } 
+
+    if(tabuleiro[y - 1] && tabuleiro[y - 1][x + 2]){
+        if(tabuleiro[y - 1][x + 2][1] === ""){
+            document.getElementById(tabuleiro[y - 1][x + 2][0]).classList.add("sugestao");
+        } else if(!tabuleiro[y - 1][x + 2][1].indexOf(tipo)){
+            document.getElementById(tabuleiro[y - 1][x + 2][0]).classList.add("matar");
+        }
+    } 
+
+    if(tabuleiro[y - 1] && tabuleiro[y - 1][x - 2]){
+        
+    } 
+
+    if(tabuleiro[y + 1] && tabuleiro[y + 1][x + 2]){
+        
+    } 
+
+    if(tabuleiro[y + 1] && tabuleiro[y + 1][x - 2]){
+        
+    } 
 }
