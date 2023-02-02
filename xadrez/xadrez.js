@@ -84,49 +84,16 @@ function renderState() {
 
 function sugereMovimento(y, x) {
 
-    if (tabuleiro[y][x][1].indexOf("Peão Branco") != -1) {
-        if (tabuleiro[y + 1][x + 1][1].indexOf("Preto") != -1) {
-            document.getElementById(tabuleiro[y + 1][x + 1][0]).classList.add("matar");
-            document.getElementById(tabuleiro[y + 1][x][0]).classList.add("sugestao");
-            document.getElementById(tabuleiro[y + 2][x][0]).classList.add("sugestao");
-        }
-        if (tabuleiro[y + 1][x - 1][1].indexOf("Preto") != -1) {
-            document.getElementById(tabuleiro[y + 1][x - 1][0]).classList.add("matar");
-            document.getElementById(tabuleiro[y + 1][x][0]).classList.add("sugestao");
-            document.getElementById(tabuleiro[y + 2][x][0]).classList.add("sugestao");
-        }
-
-        if (y == 1) {
-            document.getElementById(tabuleiro[y + 1][x][0]).classList.add("sugestao");
-            document.getElementById(tabuleiro[y + 2][x][0]).classList.add("sugestao");
-        } else {
-            document.getElementById(tabuleiro[y][x][0]).classList.add("sugestao");
-        }
+    if(tabuleiro[y][x][1].indexOf("Peão") != -1){
+        movimentoPeao(y, x);
     }
 
-    if (tabuleiro[y][x][1].indexOf("Peão Preto") != -1) {
-        if (tabuleiro[y - 1][x + 1][1].indexOf("Branco") != -1) {
-            document.getElementById(tabuleiro[y - 1][x + 1][0]).classList.add("matar");
-            document.getElementById(tabuleiro[y - 1][x][0]).classList.add("sugestao");
-            document.getElementById(tabuleiro[y - 2][x][0]).classList.add("sugestao");
-        }
-        if (tabuleiro[y - 1][x - 1][1].indexOf("Branco") != -1) {
-            document.getElementById(tabuleiro[y - 1][x - 1][0]).classList.add("matar");
-            document.getElementById(tabuleiro[y - 1][x][0]).classList.add("sugestao");
-            document.getElementById(tabuleiro[y - 2][x][0]).classList.add("sugestao");
-        }
-
-        if (y == 6) {
-            document.getElementById(tabuleiro[y - 1][x][0]).classList.add("sugestao");
-            document.getElementById(tabuleiro[y - 2][x][0]).classList.add("sugestao");
-        } else {
-            document.getElementById(tabuleiro[y - 1][x][0]).classList.add("sugestao");
-        }
+    if(tabuleiro[y][x][1].indexOf("Torre") != -1){
+        movimentoTorre(y, x);
     }
+   
 
-
-
-
+    
 }
 
 function posicaoClick(y, x) {
@@ -156,4 +123,122 @@ function posicaoClick(y, x) {
     }
 }
 
+function movimentoPeao(y, x){
+    if (tabuleiro[y][x][1].indexOf("Peão Branco") != -1) {
+        if (tabuleiro[y + 1][x + 1] && tabuleiro[y + 1][x + 1][1].indexOf("Preto") != -1) {
+            document.getElementById(tabuleiro[y + 1][x + 1][0]).classList.add("matar");
+            document.getElementById(tabuleiro[y + 1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y + 2][x][0]).classList.add("sugestao");
+        }
+        if (tabuleiro[y + 1][x - 1] && tabuleiro[y + 1][x - 1][1].indexOf("Preto") != -1) {
+            document.getElementById(tabuleiro[y + 1][x - 1][0]).classList.add("matar");
+            document.getElementById(tabuleiro[y + 1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y + 2][x][0]).classList.add("sugestao");
+        }
 
+        if (y == 1) {
+            document.getElementById(tabuleiro[y + 1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y + 2][x][0]).classList.add("sugestao");
+        } else {
+            document.getElementById(tabuleiro[y][x][0]).classList.add("sugestao");
+        }
+    }
+
+    if (tabuleiro[y][x][1].indexOf("Peão Preto") != -1) {
+        if (tabuleiro[y - 1][x + 1] && tabuleiro[y - 1][x + 1][1].indexOf("Branco") != -1) {
+            document.getElementById(tabuleiro[y - 1][x + 1][0]).classList.add("matar");
+            document.getElementById(tabuleiro[y - 1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y - 2][x][0]).classList.add("sugestao");
+        }
+        if (tabuleiro[y - 1][x - 1] && tabuleiro[y - 1][x - 1][1].indexOf("Branco") != -1) {
+            document.getElementById(tabuleiro[y - 1][x - 1][0]).classList.add("matar");
+            document.getElementById(tabuleiro[y - 1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y - 2][x][0]).classList.add("sugestao");
+        }
+
+        if (y == 6) {
+            document.getElementById(tabuleiro[y - 1][x][0]).classList.add("sugestao");
+            document.getElementById(tabuleiro[y - 2][x][0]).classList.add("sugestao");
+        } else {
+            document.getElementById(tabuleiro[y - 1][x][0]).classList.add("sugestao");
+        }
+    }
+}
+
+function movimentoTorre(y,x){
+    let tipoTorre = tabuleiro[y][x][1].indexOf("Torre Branco") != -1 ? "Branco" : "Preto";
+
+    // Verifica os movimentos verticais para baixo
+    for (let i = 0; i < 7; i++) {
+        if(! tabuleiro[y+i][x]){
+            break;
+        }
+
+        if(tabuleiro[y+i][x][1] != ""){
+            document.getElementById(tabuleiro[y + i][x][0]).classList.add("sugestao");
+        } else {
+            if(tabuleiro[y + i][x][1].indexOf(tipoTorre)){
+                break;
+            } else if(true){
+                document.getElementById(tabuleiro[y + i][x][0]).classList.add("matar");
+                break;
+            }
+        }
+    }
+
+    // Verifica os movimentos verticais para cima
+    for (let i = 0; i < 7; i++) {
+        if(! tabuleiro[y+i][x]){
+            break;
+        }
+
+        if(tabuleiro[y-i][x][1] != ""){
+            document.getElementById(tabuleiro[y - i][x][0]).classList.add("sugestao");
+        } else {
+            if(tabuleiro[y - i][x][1].indexOf(tipoTorre)){
+                break;
+            } else if(true){
+                document.getElementById(tabuleiro[y - i][x][0]).classList.add("matar");
+                break;
+            }
+        }
+    }
+
+    // Verifica os movimentos horizontais para direita
+    for (let i = 0; i < 7; i++) {
+        if(! tabuleiro[y][x + i]){
+            break;
+        }
+
+        if(tabuleiro[y][x + i][1] != ""){
+            document.getElementById(tabuleiro[y][x + i][0]).classList.add("sugestao");
+        } else {
+            if(tabuleiro[y][x + i][1].indexOf(tipoTorre)){
+                break;
+            } else if(true){
+                document.getElementById(tabuleiro[y][x + i][0]).classList.add("matar");
+                break;
+            }
+        }
+    }
+
+    // Verifica os movimentos horizontais para esquerda
+    for (let i = 0; i < 7; i++) {
+        if(! tabuleiro[y][x - i]){
+            break;
+        }
+
+        if(tabuleiro[y][x - i][1] != ""){
+            document.getElementById(tabuleiro[y][x - i][0]).classList.add("sugestao");
+        } else {
+            if(tabuleiro[y][x - i][1].indexOf(tipoTorre)){
+                break;
+            } else if(true){
+                document.getElementById(tabuleiro[y][x - i][0]).classList.add("matar");
+                break;
+            }
+        }
+    }
+
+    
+}
