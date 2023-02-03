@@ -1,17 +1,15 @@
 let tabuleiro = [[[1, ''], [2, ''], [3, ''], [4, ''], [5, ''], [6, ''], [7, ''], [8, '']],
-[[9, ''], [10, ''], [11, ''], [12, ''], [13, ''], [14, ''], [15, ''], [16, '']],
-[[17, ''], [18, ''], [19, ''], [20, ''], [21, ''], [22, ''], [23, ''], [24, '']],
-[[25, ''], [26, ''], [27, ''], [28, ''], [29, ''], [30, ''], [31, ''], [32, '']],
-[[33, ''], [34, ''], [35, ''], [36, ''], [37, ''], [38, ''], [39, ''], [40, '']],
-[[41, ''], [42, ''], [43, ''], [44, ''], [45, ''], [46, ''], [47, ''], [48, '']],
-[[49, ''], [50, ''], [51, ''], [52, ''], [53, ''], [54, ''], [55, ''], [56, '']],
-[[57, ''], [58, ''], [59, ''], [60, ''], [61, ''], [62, ''], [63, ''], [64, '']]];
+                 [[9, ''], [10, ''], [11, ''], [12, ''], [13, ''], [14, ''], [15, ''], [16, '']],
+                 [[17, ''], [18, ''], [19, ''], [20, ''], [21, ''], [22, ''], [23, ''], [24, '']],
+                 [[25, ''], [26, ''], [27, ''], [28, ''], [29, ''], [30, ''], [31, ''], [32, '']],
+                 [[33, ''], [34, ''], [35, ''], [36, ''], [37, ''], [38, ''], [39, ''], [40, '']],
+                 [[41, ''], [42, ''], [43, ''], [44, ''], [45, ''], [46, ''], [47, ''], [48, '']],
+                 [[49, ''], [50, ''], [51, ''], [52, ''], [53, ''], [54, ''], [55, ''], [56, '']],
+                 [[57, ''], [58, ''], [59, ''], [60, ''], [61, ''], [62, ''], [63, ''], [64, '']]];
 
 let pecasObtidasPorBranco = [];
 let pecasObtidasPorPreto = [];
-
 let pecaSelecionada;
-
 let jogadorDaVez = "Branco";
 
 function inicializarJogo() {
@@ -54,7 +52,7 @@ function inicializarJogo() {
 }
 
 function movePeca(peca, y, x) {
-    if(! peca[1].indexOf(jogadorDaVez) != -1){
+    if(peca[1].indexOf(jogadorDaVez) == -1){
         return;
     }
 
@@ -63,7 +61,7 @@ function movePeca(peca, y, x) {
         
         if (tabuleiro[y][x][1] != "") {
             console.log(tabuleiro[y][x][1].split(" ")[1])
-            if (tabuleiro[y][x][1].split(" ")[1] === "Preto") {
+            if (tabuleiro[y][x][1].indexOf("Preto") != -1) {
                 pecasObtidasPorPreto.push(tabuleiro[y][x][1])
             } else {
                 pecasObtidasPorBranco.push(tabuleiro[y][x][1]);
@@ -73,7 +71,7 @@ function movePeca(peca, y, x) {
         tabuleiro[y][x][1] = peca[1];
         peca[1] = "";
         
-        jogadorDaVez == "Branco" ? jogadorDaVez = "Preto" : "Branco";
+        jogadorDaVez == "Branco" ? jogadorDaVez = "Preto" : jogadorDaVez = "Branco";
         renderState();
     }
 }
@@ -91,6 +89,9 @@ function renderState() {
 }
 
 function sugereMovimento(y, x) {
+    if(tabuleiro[y][x][1].indexOf(jogadorDaVez) == -1){
+        return;
+    }
 
     if(tabuleiro[y][x][1].indexOf("Peão") != -1){
         movimentoPeao(y, x);
@@ -103,8 +104,6 @@ function sugereMovimento(y, x) {
     if(tabuleiro[y][x][1].indexOf("Cavalo") != -1){
         movimentoCavalo(y, x);
     }
-
-    
 }
 
 function posicaoClick(y, x) {
@@ -120,7 +119,6 @@ function posicaoClick(y, x) {
             movePeca(pecaSelecionada, y, x);
             pecaSelecionada = undefined;
         }
-
 
         for (let i = 0; i < tabuleiro.length; i++) {
             for (let j = 0; j < tabuleiro[i].length; j++) {
@@ -255,11 +253,10 @@ function movimentoTorre(y,x){
 function movimentoCavalo(y, x){
     let tipo= tabuleiro[y][x][1].indexOf("Cavalo Branco") != -1 ? "Branco" : "Preto";
 
-    
     if(tabuleiro[y + 2] && tabuleiro[y + 2][x + 1]){
         if(tabuleiro[y + 2][x + 1][1] === ""){
             document.getElementById(tabuleiro[y + 2][x + 1][0]).classList.add("sugestao");
-        } else if(!tabuleiro[y + 2][x + 1][1].indexOf(tipo) != -1){
+        } else if(tabuleiro[y + 2][x + 1][1].indexOf(tipo) == -1){
             document.getElementById(tabuleiro[y + 2][x + 1][0]).classList.add("matar");
         }
     }      
@@ -267,7 +264,7 @@ function movimentoCavalo(y, x){
     if(tabuleiro[y - 2] && tabuleiro[y - 2][x + 1]){
         if(tabuleiro[y - 2][x + 1][1] === ""){
             document.getElementById(tabuleiro[y - 2][x + 1][0]).classList.add("sugestao");
-        } else if(!tabuleiro[y - 2][x + 1][1].indexOf(tipo) != -1){
+        } else if(tabuleiro[y - 2][x + 1][1].indexOf(tipo) == -1){
             document.getElementById(tabuleiro[y - 2][x + 1][0]).classList.add("matar");
         }
     } 
@@ -275,7 +272,7 @@ function movimentoCavalo(y, x){
     if(tabuleiro[y + 2] && tabuleiro[y + 2][x - 1]){
         if(tabuleiro[y + 2][x - 1][1] === ""){
             document.getElementById(tabuleiro[y + 2][x - 1][0]).classList.add("sugestao");
-        } else if(!tabuleiro[y + 2][x - 1][1].indexOf(tipo)!= -1){
+        } else if(tabuleiro[y + 2][x - 1][1].indexOf(tipo) == -1){
             document.getElementById(tabuleiro[y + 2][x - 1][0]).classList.add("matar");
         }
     }      
@@ -283,7 +280,7 @@ function movimentoCavalo(y, x){
     if(tabuleiro[y - 2] && tabuleiro[y - 2][x - 1]){
         if(tabuleiro[y - 2][x - 1][1] === ""){
             document.getElementById(tabuleiro[y - 2][x - 1][0]).classList.add("sugestao");
-        } else if(!tabuleiro[y - 2][x - 1][1].indexOf(tipo) != -1){
+        } else if(tabuleiro[y - 2][x - 1][1].indexOf(tipo) == -1){
             document.getElementById(tabuleiro[y - 2][x - 1][0]).classList.add("matar");
         }
     } 
@@ -291,20 +288,32 @@ function movimentoCavalo(y, x){
     if(tabuleiro[y - 1] && tabuleiro[y - 1][x + 2]){
         if(tabuleiro[y - 1][x + 2][1] === ""){
             document.getElementById(tabuleiro[y - 1][x + 2][0]).classList.add("sugestao");
-        } else if(!tabuleiro[y - 1][x + 2][1].indexOf(tipo) != -1){
+        } else if(tabuleiro[y - 1][x + 2][1].indexOf(tipo) == -1){
             document.getElementById(tabuleiro[y - 1][x + 2][0]).classList.add("matar");
         }
     } 
 
     if(tabuleiro[y - 1] && tabuleiro[y - 1][x - 2]){
-        
+        if(tabuleiro[y - 1][x - 2][1] === ""){
+            document.getElementById(tabuleiro[y - 1][x - 2][0]).classList.add("sugestao");
+        } else if(tabuleiro[y - 1][x - 2][1].indexOf(tipo) == -1){
+            document.getElementById(tabuleiro[y - 1][x - 2][0]).classList.add("matar");
+        }
     } 
 
     if(tabuleiro[y + 1] && tabuleiro[y + 1][x + 2]){
-        
+        if(tabuleiro[y + 1][x + 2][1] === ""){
+            document.getElementById(tabuleiro[y + 1][x + 2][0]).classList.add("sugestao");
+        } else if(tabuleiro[y + 1][x + 2][1].indexOf(tipo) == -1){
+            document.getElementById(tabuleiro[y + 1][x + 2][0]).classList.add("matar");
+        }
     } 
 
     if(tabuleiro[y + 1] && tabuleiro[y + 1][x - 2]){
-        
+        if(tabuleiro[y + 1][x - 2][1] === ""){
+            document.getElementById(tabuleiro[y + 1][x - 2][0]).classList.add("sugestao");
+        } else if(tabuleiro[y + 1][x - 2][1].indexOf(tipo) == -1){
+            document.getElementById(tabuleiro[y + 1][x - 2][0]).classList.add("matar");
+        }
     } 
 }
