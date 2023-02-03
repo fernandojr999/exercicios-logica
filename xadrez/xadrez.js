@@ -125,9 +125,7 @@ function posicaoClick(y, x) {
                 document.getElementById(tabuleiro[i][j][0]).classList.remove('matar');
                 document.getElementById(tabuleiro[i][j][0]).classList.remove('sugestao');
                 document.getElementById(tabuleiro[i][j][0]).classList.remove('peca-selecionada');
-
             }
-
         }
     }
 }
@@ -178,15 +176,15 @@ function movimentoTorre(y,x){
     let tipoTorre = tabuleiro[y][x][1].indexOf("Torre Branco") != -1 ? "Branco" : "Preto";
 
     // Verifica os movimentos verticais para baixo
-    for (let i = 0; i < 7; i++) {
-        if(! tabuleiro[y+i][x]){
+    for (let i = 1; i <= 7; i++) {
+        if(!tabuleiro[y+i]){
             break;
         }
 
-        if(tabuleiro[y+i][x][1] != ""){
+        if(tabuleiro[y+i][x][1] == ""){
             document.getElementById(tabuleiro[y + i][x][0]).classList.add("sugestao");
         } else {
-            if(tabuleiro[y + i][x][1].indexOf(tipoTorre)){
+            if(tabuleiro[y + i][x][1].indexOf(tipoTorre) != -1){
                 break;
             } else if(true){
                 document.getElementById(tabuleiro[y + i][x][0]).classList.add("matar");
@@ -196,8 +194,8 @@ function movimentoTorre(y,x){
     }
 
     // Verifica os movimentos verticais para cima
-    for (let i = 0; i < 7; i++) {
-        if(! tabuleiro[y+i][x]){
+    /*for (let i = 0; i < 7; i++) {
+        if(! tabuleiro[y+i]){
             break;
         }
 
@@ -247,7 +245,7 @@ function movimentoTorre(y,x){
                 break;
             }
         }
-    }    
+    }    */
 }
 
 function movimentoCavalo(y, x){

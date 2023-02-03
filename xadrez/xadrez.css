@@ -28,10 +28,16 @@
   float: left;
   width: 70px;
   height: 70px;
-  border-left: 1.5px solid rgb(1, 68, 15);
-  border-bottom: 1.5px solid rgb(1, 68, 15);
   text-align: center;
   transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.row div:hover {
 }
 
 .row div:first-child {
@@ -40,12 +46,14 @@
 
 .line-1 div:nth-child(2n+1) {
   background: rgb(1, 68, 15);
-  color: #FFF
+  color: #FFF;
+  display: flex;
 }
 
 .line-2 div:nth-child(2n) {
   background: rgb(1, 68, 15);
-  color: #FFF
+  color: #FFF;
+  display: flex;
 }
 
 #pontuacao {
