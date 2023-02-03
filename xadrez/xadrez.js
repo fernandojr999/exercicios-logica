@@ -12,6 +12,8 @@ let pecasObtidasPorPreto = [];
 
 let pecaSelecionada;
 
+let jogadorDaVez = "Branco";
+
 function inicializarJogo() {
     tabuleiro[0][0][1] = 'Torre Branco 1';
     tabuleiro[0][1][1] = 'Cavalo Branco 1';
@@ -52,6 +54,10 @@ function inicializarJogo() {
 }
 
 function movePeca(peca, y, x) {
+    if(! peca[1].indexOf(jogadorDaVez) != -1){
+        return;
+    }
+
     if((document.getElementById(tabuleiro[y][x][0]).classList.contains("sugestao")) ||
        (document.getElementById(tabuleiro[y][x][0]).classList.contains("matar"))){
         
@@ -67,6 +73,7 @@ function movePeca(peca, y, x) {
         tabuleiro[y][x][1] = peca[1];
         peca[1] = "";
         
+        jogadorDaVez == "Branco" ? jogadorDaVez = "Preto" : "Branco";
         renderState();
     }
 }
@@ -78,8 +85,9 @@ function renderState() {
         }
     }
 
-    document.getElementById('plcBranco').innerHTML = `Peças obtidas pelo branco: ${pecasObtidasPorBranco}`
-    document.getElementById('plcPreto').innerHTML = `Peças obtidas pelo preto: ${pecasObtidasPorPreto}`
+    document.getElementById('jogadorVez').innerHTML = `É a vez do ${jogadorDaVez} jogar.`;
+    document.getElementById('plcBranco').innerHTML = `Peças obtidas pelo branco: ${pecasObtidasPorBranco}`;
+    document.getElementById('plcPreto').innerHTML = `Peças obtidas pelo preto: ${pecasObtidasPorPreto}`;
 }
 
 function sugereMovimento(y, x) {
